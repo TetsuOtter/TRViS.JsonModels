@@ -3,6 +3,7 @@
 namespace TRViS.JsonModels;
 
 public class TimetableRowData(
+	string? Id,
 	string StationName,
 	double Location_m,
 	double? Longitude_deg,
@@ -29,6 +30,7 @@ public class TimetableRowData(
 	int? WorkType
 ) : IEquatable<TimetableRowData>
 {
+	public string? Id { get; } = Id;
 	public string StationName { get; } = StationName;
 	public double Location_m { get; } = Location_m;
 	public double? Longitude_deg { get; } = Longitude_deg;
@@ -55,7 +57,7 @@ public class TimetableRowData(
 	public int? WorkType { get; } = WorkType;
 
 	public override string ToString() =>
-		$"{nameof(TimetableRowData)}{{'{StationName}'(FullName: '{FullName}') @ {Location_m}m (lon:{Longitude_deg}, lat:{Latitude_deg}), OnStationDetectRadius: {OnStationDetectRadius_m}m, "
+		$"{nameof(TimetableRowData)}{{'{StationName}'(ID: '{Id}', FullName: '{FullName}') @ {Location_m}m (lon:{Longitude_deg}, lat:{Latitude_deg}), OnStationDetectRadius: {OnStationDetectRadius_m}m, "
 		+ $"{nameof(RecordType)}:{RecordType}, {nameof(TrackName)}:'{TrackName}', DriveTime:'{DriveTime_MM}:{DriveTime_SS}', "
 		+ $"{nameof(IsOperationOnlyStop)}{IsOperationOnlyStop}, {nameof(IsPass)}{IsPass}, {nameof(HasBracket)}{HasBracket}, {nameof(IsLastStop)}{IsLastStop},"
 		+ $"{nameof(Arrive)}:'{Arrive}', {nameof(Departure)}:'{Departure}', {nameof(RunInLimit)}:{RunInLimit}, {nameof(RunOutLimit)}{RunOutLimit},"
@@ -70,6 +72,7 @@ public class TimetableRowData(
 			return true;
 
 		return (
+			Id == other.Id &&
 			StationName == other.StationName &&
 			Location_m == other.Location_m &&
 			Longitude_deg == other.Longitude_deg &&
@@ -98,6 +101,7 @@ public class TimetableRowData(
 	public override bool Equals(object? obj) => Equals(obj as TimetableRowData);
 
 	public override int GetHashCode() =>
+		(Id?.GetHashCode() ?? 0) ^
 		StationName.GetHashCode() ^
 		Location_m.GetHashCode() ^
 		Longitude_deg.GetHashCode() ^

@@ -4,6 +4,7 @@ using System.Linq;
 namespace TRViS.JsonModels;
 
 public class WorkData(
+	string? Id,
 	string Name,
 	string? AffectDate,
 	int? AffixContentType,
@@ -15,6 +16,7 @@ public class WorkData(
 	TrainData[] Trains
 ) : IEquatable<WorkData>
 {
+	public string? Id { get; } = Id;
 	public string Name { get; } = Name;
 	public string? AffectDate { get; } = AffectDate;
 	public int? AffixContentType { get; } = AffixContentType;
@@ -26,7 +28,7 @@ public class WorkData(
 	public TrainData[] Trains { get; } = Trains;
 
 	public override string ToString() =>
-		$"{nameof(WorkData)}{{'{Name}', {nameof(AffectDate)}:'{AffectDate}', {nameof(AffixContentType)}:{AffixContentType}, {nameof(AffixContent)}:'{AffixContent}', {nameof(Remarks)}:'{Remarks}', "
+		$"{nameof(WorkData)}{{'{Id}', '{Name}', {nameof(AffectDate)}:'{AffectDate}', {nameof(AffixContentType)}:{AffixContentType}, {nameof(AffixContent)}:'{AffixContent}', {nameof(Remarks)}:'{Remarks}', "
 		+ $"{nameof(HasETrainTimetable)}:{HasETrainTimetable}, {nameof(ETrainTimetableContentType)}:{ETrainTimetableContentType}, {nameof(ETrainTimetableContent)}:'{ETrainTimetableContent}', "
 		+ $"{nameof(Trains)}: {Trains.Length} trains}}";
 
@@ -38,6 +40,7 @@ public class WorkData(
 			return true;
 
 		return (
+			Id == other.Id &&
 			Name == other.Name &&
 			AffectDate == other.AffectDate &&
 			AffixContentType == other.AffixContentType &&
@@ -53,6 +56,7 @@ public class WorkData(
 	public override bool Equals(object? obj) => Equals(obj as WorkData);
 
 	public override int GetHashCode() =>
+		(Id?.GetHashCode() ?? 0) ^
 		Name.GetHashCode() ^
 		(AffectDate?.GetHashCode() ?? 0) ^
 		AffixContentType.GetHashCode() ^
