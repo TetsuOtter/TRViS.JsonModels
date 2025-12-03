@@ -24,7 +24,8 @@ public class TrainData(
 	int? DayCount,
 	bool? IsRideOnMoving,
 	string? Color,
-	TimetableRowData[] TimetableRows
+	TimetableRowData[] TimetableRows,
+	string? NextTrainId
 ) : IEquatable<TrainData>
 {
 	public string? Id { get; } = Id;
@@ -48,15 +49,16 @@ public class TrainData(
 	public bool? IsRideOnMoving { get; } = IsRideOnMoving;
 	public string? Color { get; } = Color;
 	public TimetableRowData[] TimetableRows { get; } = TimetableRows;
+	public string? NextTrainId { get; } = NextTrainId;
 
 	public override string ToString() =>
 		$"{nameof(TrainData)}{{'{Id}', '{TrainNumber}', {nameof(Direction)}:{Direction}, {nameof(Destination)}:'{Destination}', {CarCount} cars, "
 		+ $"{nameof(NominalTractiveCapacity)}:'{NominalTractiveCapacity}', {nameof(MaxSpeed)}:'{MaxSpeed}', {nameof(SpeedType)}:'{SpeedType}', {nameof(WorkType)}:{WorkType}, Day{DayCount}, {nameof(Color)}:'{Color}', {nameof(IsRideOnMoving)}:{IsRideOnMoving}, "
 		+ $"{nameof(BeginRemarks)}:'{BeginRemarks}', {nameof(AfterRemarks)}:'{AfterRemarks}', {nameof(Remarks)}:'{Remarks}', {nameof(BeforeDeparture)}:'{BeforeDeparture}', {nameof(TrainInfo)}:'{TrainInfo}', "
 		+ $"{nameof(AfterArrive)}:'{AfterArrive}', {nameof(BeforeDeparture_OnStationTrackCol)}:'{BeforeDeparture_OnStationTrackCol}', {nameof(AfterArrive_OnStationTrackCol)}:'{AfterArrive_OnStationTrackCol}', "
-		+ $"{nameof(TimetableRows)}: {TimetableRows.Length} rows}}";
+		+ $"{nameof(TimetableRows)}: {TimetableRows.Length} rows, {nameof(NextTrainId)}:'{NextTrainId}'}}";
 
-  public bool Equals(TrainData? other)
+	public bool Equals(TrainData? other)
 	{
 		if (other is null)
 			return false;
@@ -84,7 +86,8 @@ public class TrainData(
 			DayCount == other.DayCount &&
 			IsRideOnMoving == other.IsRideOnMoving &&
 			Color == other.Color &&
-			TimetableRows.SequenceEqual(other.TimetableRows)
+			TimetableRows.SequenceEqual(other.TimetableRows) &&
+			NextTrainId == other.NextTrainId
 		);
 	}
 
@@ -111,5 +114,6 @@ public class TrainData(
 		DayCount.GetHashCode() ^
 		IsRideOnMoving.GetHashCode() ^
 		(Color?.GetHashCode() ?? 0) ^
-		TimetableRows.GetHashCode();
+		TimetableRows.GetHashCode() ^
+		(NextTrainId?.GetHashCode() ?? 0);
 }
