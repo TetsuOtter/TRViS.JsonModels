@@ -55,12 +55,6 @@
 		"AfterArrive": {
 			"type": "string"
 		},
-		"BeforeDeparture_OnStationTrackCol": {
-			"type": "string"
-		},
-		"AfterArrive_OnStationTrackCol": {
-			"type": "string"
-		},
 		"DayCount": {
 			"type": "integer",
 			"minimum": 0
