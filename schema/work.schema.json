@@ -5,7 +5,7 @@
 	"type": "object",
 	"additionalProperties": true,
 
-	"required": ["Name", "AffectDate", "Trains"],
+	"required": ["Name", "Trains"],
 
 	"properties": {
 		"Id": {
@@ -16,8 +16,7 @@
 			"minLength": 1
 		},
 		"AffectDate": {
-			"type": "string",
-			"minLength": 1
+			"type": "string"
 		},
 		"AffixContentType": {
 			"type": "integer"
